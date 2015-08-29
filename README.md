@@ -1,2 +1,3 @@
-# robotic-combinators
-Robotic Combinators read the local Logistics Network and pass on valuable figures
+# Factorio Mod
+# Robotic Combinators 
+Adds combinator that reads Logistics Network statistics to circuit networks.
