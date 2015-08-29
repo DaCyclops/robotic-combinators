@@ -1,0 +1,10 @@
+{
+  "name": "robotic-combinators",
+  "version": "0.2.1",
+  "title": "Robotic Combinators",
+  "author": "DaCyclops",
+  "homepage": "",
+  "contact": "dacyclops@dacyclops.com",
+  "description": "Adds combinator that reads Robot statistics to circuit networks.",
+  "dependencies": ["base >= 0.12.0"]
+}
