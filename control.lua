@@ -1,15 +1,45 @@
 require "defines"
+require "config"
 
 local ReadyToRoll=0
 
-local mod_version="0.3.1"
+local mod_version="0.3.0"
+
+local poll_network = math.floor(60/rc_polling_rate_network)
+local poll_network_slow = math.floor(60/rc_polling_rate_network_slow)
+local poll_personal = math.floor(60/rc_polling_rate_personal)
+local poll_personal_slow = math.floor(60/rc_polling_rate_personal_slow)
+local poll_local = math.floor(60/rc_polling_rate_local)
+local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
+
 
 local combs_polling_cycles = math.floor(60/5)
 
+    local rc_network={}
+    local rc_personal={}
+    local rc_local={}
+    
+local function setSig_network(thisRC,rclogidle, rclogtotal, rcconidle, rccontotal)
+  local rcparas = {parameters={
+    {index=1,count=rclogidle,signal={type="virtual",name="signal-robot-log-idle"}},
+    {index=2,count=rclogtotal,signal={type="virtual",name="signal-robot-log-total"}},
+    {index=3,count=rcconidle,signal={type="virtual",name="signal-robot-con-idle"}},
+    {index=4,count=rccontotal,signal={type="virtual",name="signal-robot-con-total"}},
+  }}
+  thisRC.set_circuit_condition(1,rcparas)
+end
 
-local rcs_combs={}
+local function setSig_personal(thisRC,rclogidle, rclogtotal, rcconidle, rccontotal)
+  local rcparas = {parameters={
+    {index=1,count=rclogidle,signal={type="virtual",name="signal-robot-log-idle"}},
+    {index=2,count=rclogtotal,signal={type="virtual",name="signal-robot-log-total"}},
+    {index=3,count=rcconidle,signal={type="virtual",name="signal-robot-con-idle"}},
+    {index=4,count=rccontotal,signal={type="virtual",name="signal-robot-con-total"}},
+  }}
+  thisRC.set_circuit_condition(1,rcparas)
+end
 
-local function rcSetSignals(thisRC,rclogidle, rclogtotal, rcconidle, rccontotal)
+local function setSig_local(thisRC,rclogidle, rclogtotal, rcconidle, rccontotal)
   local rcparas = {parameters={
     {index=1,count=rclogidle,signal={type="virtual",name="signal-robot-log-idle"}},
     {index=2,count=rclogtotal,signal={type="virtual",name="signal-robot-log-total"}},
@@ -22,8 +52,13 @@ end
 
 
 
+
+
+
 local function onLoad()
-  if global.robotic_combinators==nil or global.robotic_combinators.version ~= mod_version then
+  grc = global.robotic-combinators
+
+  if global.robotic_combinators == nil or global.robotic_combinators.version ~= mod_version then
     --unlock if needed
     for _,force in pairs(game.forces) do
       force.reset_recipes()
@@ -39,16 +74,31 @@ local function onLoad()
       end
 
     end
-    global.robotic_combinators={rcscombs={}, version=mod_version}
+    grc.version=mod_version
   end
 
-  rcs_combs=global.robotic_combinators.rcscombs
+
+  
+  if grc.rc_network ~= nil then
+    local rc_network=grc.rc_network
+  end
+
+  if grc.rc_personal ~= nil then
+    local rc_personal=grc.rc_personal
+  end
+  
+  if grc.rc_local ~= nil then
+    local rc_local=grc.rc_local
+  end
+
   
 ReadyToRoll=11
 end
 
+
 local function onSave()
-  global.robotic_combinators={rcscombs=rcs_combs, version=mod_version}
+  --
+  local soEmpty = nil
 end
 
 
@@ -57,17 +107,17 @@ if ReadyToRoll == 11 then
 
 
 
-  if event.tick%combs_polling_cycles == combs_polling_cycles-1 then
-    for k,v in pairs(rcs_combs) do
+  if event.tick%poll_network == poll_network-1 then
+    for k,v in pairs(rc_network) do
       local ve
       if v.EntityID.valid then
         ve = v.EntityID
         local LogiNet
         LogiNet = ve.surface.find_logistic_network_by_position(ve.position,ve.force.name)
         if LogiNet == nil then
-          rcSetSignals(ve, 0, 0, 0, 0)
+          setSig_network(ve, 0, 0, 0, 0)
         else
-          rcSetSignals(ve, LogiNet.available_logistic_robots, LogiNet.all_logistic_robots, LogiNet.available_construction_robots, LogiNet.all_construction_robots)
+          setSig_network(ve, LogiNet.available_logistic_robots, LogiNet.all_logistic_robots, LogiNet.available_construction_robots, LogiNet.all_construction_robots)
         end
       end
     end
@@ -84,12 +134,11 @@ end
 local function onPlaceEntity(event)
   local entity=event.created_entity
   if entity.name=="robotic-network-combinator" then
-    rcs_combs[#rcs_combs+1]={EntityID=entity}
+    rc_network[#rc_network+1]={EntityID=entity}
   end
 
 
 end
-
 
 
 
