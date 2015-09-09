@@ -28,4 +28,66 @@ data:extend(
     subgroup = "virtual-signal-number",
     order = "r[robots]-[4]"
   }
+  {
+    type = "virtual-signal",
+    name = "signal-robot-construction-radius",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[5]"
+  }
+
+  {
+    type = "virtual-signal",
+    name = "signal-robot-roboports",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[6]"
+  }
+  {
+    type = "virtual-signal",
+    name = "signal-robot-storage-count",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[7]"
+  }
+  {
+    type = "virtual-signal",
+    name = "signal-robot-storage-empty",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[8]"
+  }
+  {
+    type = "virtual-signal",
+    name = "signal-robot-pending-requesters",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[9]"
+  }
+  {
+    type = "virtual-signal",
+    name = "signal-robot-charging-count",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[10]"
+  }
+  {
+    type = "virtual-signal",
+    name = "signal-robot-to-charge-count",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[11]"
+  }
+  {
+    type = "virtual-signal",
+    name = "signal-robot-sad-robots",
+    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    subgroup = "virtual-signal-number",
+    order = "r[robots]-[12]"
+  }
+
+
+
+
+
 })

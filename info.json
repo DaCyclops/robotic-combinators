@@ -1,10 +1,10 @@
 {
   "name": "robotic-combinators",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "title": "Robotic Combinators",
   "author": "DaCyclops",
   "homepage": "",
   "contact": "dacyclops@dacyclops.com",
-  "description": "Adds combinator that reads Logistics Network statistics to circuit networks.",
+  "description": "Adds combinators for reading Robotic statistics to Signals.",
   "dependencies": ["base >= 0.12.5"]
 }

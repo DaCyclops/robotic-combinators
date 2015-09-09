@@ -1,17 +1,17 @@
 data:extend( {
   {
     type = "item",
-    name = "robotic-combinator",
+    name = "robotic-network-combinator",
     icon = "__robotic-combinators__/graphics/icon-robotic-combinator.png",
     flags = {"goes-to-quickbar"},
     subgroup = "circuit-network",
-    place_result="robotic-combinator",
+    place_result="robotic-network-combinator",
     order = "b[combinators]-e[robotic-combinator]",
     stack_size = 50,
   },
   {
     type = "recipe",
-    name = "robotic-combinator",
+    name = "robotic-network-combinator",
     enabled = "false",
     ingredients =
     {
@@ -19,11 +19,11 @@ data:extend( {
       {"iron-plate",2},
       {"advanced-circuit", 1},
     },
-    result="robotic-combinator",
+    result="robotic-network-combinator",
   },
   {
     type = "constant-combinator",
-    name = "robotic-combinator",
+    name = "robotic-network-combinator",
     icon = "__robotic-combinators__/graphics/robotic-combinator.png",
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "robotic-combinator"},
@@ -61,5 +61,5 @@ data:extend( {
 
 })
 
-table.insert(data.raw["technology"]["logistic-robotics"].effects,{type="unlock-recipe",recipe="robotic-combinator"})
-table.insert(data.raw["technology"]["construction-robotics"].effects,{type="unlock-recipe",recipe="robotic-combinator"})
+table.insert(data.raw["technology"]["logistic-robotics"].effects,{type="unlock-recipe",recipe="robotic-network-combinator"})
+table.insert(data.raw["technology"]["construction-robotics"].effects,{type="unlock-recipe",recipe="robotic-network-combinator"})

@@ -2,7 +2,7 @@ require "defines"
 
 local ReadyToRoll=0
 
-local mod_version="0.2.1"
+local mod_version="0.3.1"
 
 local combs_polling_cycles = math.floor(60/5)
 
@@ -83,7 +83,7 @@ end
 
 local function onPlaceEntity(event)
   local entity=event.created_entity
-  if entity.name=="robotic-combinator" then
+  if entity.name=="robotic-network-combinator" then
     rcs_combs[#rcs_combs+1]={EntityID=entity}
   end
 
