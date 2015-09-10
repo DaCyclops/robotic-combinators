@@ -6,7 +6,7 @@ data:extend( {
     flags = {"goes-to-quickbar"},
     subgroup = "circuit-network",
     place_result="robotic-network-combinator",
-    order = "b[combinators]-e[robotic-combinator]",
+    order = "b[combinators]-e[robotic-network-combinator]",
     stack_size = 50,
   },
   {
@@ -26,14 +26,14 @@ data:extend( {
     name = "robotic-network-combinator",
     icon = "__robotic-combinators__/graphics/robotic-combinator.png",
     flags = {"placeable-neutral", "player-creation"},
-    minable = {hardness = 0.2, mining_time = 0.5, result = "robotic-combinator"},
+    minable = {hardness = 0.2, mining_time = 0.5, result = "robotic-network-combinator"},
     max_health = 50,
     corpse = "small-remnants",
 
     collision_box = {{-0.35, -0.35}, {0.35, 0.35}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
 
-    item_slot_count = 4,
+    item_slot_count = 10,
 
     sprite =
     {
