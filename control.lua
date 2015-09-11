@@ -21,6 +21,7 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
   local function onLoad()
   grc = global.robotic_combinators
 
+  -- Version Recipie Reset Migration
   if global.robotic_combinators == nil or global.robotic_combinators.version ~= mod_version then
     --unlock if needed
     for _,force in pairs(game.forces) do
@@ -40,8 +41,13 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
     grc.version=mod_version
   end
 
+   -- Global Migrations
+  if grc.rcscobs ~= nil then
+    grc.rc_network = grc.rcscobs
+    grc.rcscobs = nil
+  end
 
-  
+  -- Global Extraction
   if grc.rc_network ~= nil then
     local rc_network=grc.rc_network
   end
@@ -64,7 +70,7 @@ end
 
 
 local function onSave()
-  --
+  -- Global Re-saving, to be safe...
     
   global.robotic_combinators.rc_network = rc_network
   global.robotic_combinators.rc_network_slowstats = rc_network_slowstats
@@ -99,7 +105,7 @@ if ReadyToRoll == 11 then
             nowCharging = nowCharging + cv.charging_robot_count
             toCharge = toCharge + cv.to_charge_robot_count 
           end
-          rc_network_slowstats[LogiNet] = {es=emptyStorage, nc=nowCharging, tc=toCharge}
+          rc_network_slowstats[k] = {es=emptyStorage, nc=nowCharging, tc=toCharge}
         end
       end
     end
@@ -133,10 +139,10 @@ if ReadyToRoll == 11 then
           for _ in pairs(thisNet.storages) do thisStorageCount = thisStorageCount + 1 end  
           for _ in pairs(thisNet.requesters ) do thisRequesters = thisRequesters + 1 end  
           --for _ in pairs(thisNet.full_or_satisfied_requesters) do thisSatisfiedRequesters = thisSatisfiedRequesters + 1 end  
-          if rc_network_slowstats[thisNet] ~= nil then
-            thisStorageEmpty = rc_network_slowstats[thisNet].es
-            thisCharging = rc_network_slowstats[thisNet].nc
-            thisToCharge = rc_network_slowstats[thisNet].tc
+          if rc_network_slowstats[k] ~= nil then
+            thisStorageEmpty = rc_network_slowstats[k].es
+            thisCharging = rc_network_slowstats[k].nc
+            thisToCharge = rc_network_slowstats[k].tc
           end
         end
         local rcparas = {parameters={
