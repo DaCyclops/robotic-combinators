@@ -31,21 +31,21 @@ data:extend(
   {
     type = "virtual-signal",
     name = "signal-robot-construction-radius",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-con-radius.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[05]"
   },
   {
     type = "virtual-signal",
     name = "signal-robot-roboports",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-roboports.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[06]"
   },
   {
     type = "virtual-signal",
     name = "signal-robot-storage-count",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-storage.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[07]"
   },
@@ -59,7 +59,7 @@ data:extend(
   {
     type = "virtual-signal",
     name = "signal-robot-pending-requesters",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-pending-requester.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[09]"
   },
