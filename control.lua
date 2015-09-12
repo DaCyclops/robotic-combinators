@@ -20,7 +20,7 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
 
   local function onLoad()
   
-  -- Version Recipie Reset Migration
+  -- Version Recipe Reset Migration
   if global.robotic_combinators == nil or global.robotic_combinators.version ~= mod_version then
     --unlock if needed
     for _,force in pairs(game.forces) do
@@ -41,26 +41,26 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
   end
 
    -- Global Migrations
-  --if global.robotic_combinators.rcscombs ~= nil then
-    --global.robotic_combinators.rcs_network = global.robotic_combinators.rcscombs
-    --global.robotic_combinators.rcscombs = nil
-  --end
+  if global.robotic_combinators.rcscombs ~= nil then
+    global.robotic_combinators.rcs_network = global.robotic_combinators.rcscombs
+    global.robotic_combinators.rcscombs = nil
+  end
 
   -- Global Extraction
   if global.robotic_combinators.rcs_network ~= nil then
-    local rc_network=global.robotic_combinators.rcs_network
+    rc_network=global.robotic_combinators.rcs_network
   end
 
   if global.robotic_combinators.rcs_network_slowstats ~= nil then
-    local rc_network_slowstats=global.robotic_combinators.rcs_network_slowstats
+    rc_network_slowstats=global.robotic_combinators.rcs_network_slowstats
   end
   
   if global.robotic_combinators.rcs_personal ~= nil then
-    local rc_personal=global.robotic_combinators.rcs_personal
+    rc_personal=global.robotic_combinators.rcs_personal
   end
   
   if global.robotic_combinators.rcs_local ~= nil then
-    local rc_local=global.robotic_combinators.rcs_local
+    rc_local=global.robotic_combinators.rcs_local
   end
 
   
