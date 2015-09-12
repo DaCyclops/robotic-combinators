@@ -3,7 +3,7 @@ require "config"
 
 local ReadyToRoll=0
 
-local mod_version="0.3.1"
+local mod_version="0.3.2"
 
 local poll_network = math.floor(60/rc_polling_rate_network)
 local poll_network_slow = math.floor(60/rc_polling_rate_network_slow)
@@ -37,7 +37,16 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
       end
 
     end
-    global.robotic_combinators.version=mod_version
+    if global.robotic_combinators == nil then
+        global.robotic_combinators={rcs_network={},
+                              rcs_network_slowstats={}, 
+                              rcs_personal={}, 
+                              rcs_local={}, 
+                              version=mod_version}
+    end
+    
+    
+    
   end
 
    -- Global Migrations

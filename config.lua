@@ -4,9 +4,9 @@
 --    - Slow Update Processes (calculating stats that could cause lag)
 -- Feel free to tweak these figures 
 
-rc_polling_rate_network = 15
-rc_polling_rate_network_slow = 4
-rc_polling_rate_personal = 15
-rc_polling_rate_personal_slow = 5
+rc_polling_rate_network = 12
+rc_polling_rate_network_slow = 3
+rc_polling_rate_personal = 12
+rc_polling_rate_personal_slow = 4
 rc_polling_rate_local = 20
 rc_polling_rate_local_slow = 10
