@@ -52,7 +52,7 @@ data:extend(
   {
     type = "virtual-signal",
     name = "signal-robot-storage-empty",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-storage-empty.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[08]"
   },
@@ -66,21 +66,21 @@ data:extend(
   {
     type = "virtual-signal",
     name = "signal-robot-charging-count",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-now-charging.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[10]"
   },
   {
     type = "virtual-signal",
     name = "signal-robot-to-charge-count",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-to-charge.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[11]"
   },
   {
     type = "virtual-signal",
     name = "signal-robot-sad-robots",
-    icon = "__robotic-combinators__/graphics/signal-blank.png",
+    icon = "__robotic-combinators__/graphics/signal-robot-sad.png",
     subgroup = "virtual-signal-number",
     order = "r[robots]-[12]"
   },

@@ -19,8 +19,7 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
     local rc_local={}
 
   local function onLoad()
-  grc = global.robotic_combinators
-
+  
   -- Version Recipie Reset Migration
   if global.robotic_combinators == nil or global.robotic_combinators.version ~= mod_version then
     --unlock if needed
@@ -38,30 +37,30 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
       end
 
     end
-    grc.version=mod_version
+    global.robotic_combinators.version=mod_version
   end
 
    -- Global Migrations
-  if grc.rcscobs ~= nil then
-    grc.rc_network = grc.rcscobs
-    grc.rcscobs = nil
-  end
+  --if global.robotic_combinators.rcscombs ~= nil then
+    --global.robotic_combinators.rcs_network = global.robotic_combinators.rcscombs
+    --global.robotic_combinators.rcscombs = nil
+  --end
 
   -- Global Extraction
-  if grc.rc_network ~= nil then
-    local rc_network=grc.rc_network
+  if global.robotic_combinators.rcs_network ~= nil then
+    local rc_network=global.robotic_combinators.rcs_network
   end
 
-  if grc.rc_network_slowstats ~= nil then
-    local rc_network_slowstats=grc.rc_network_slowstats
+  if global.robotic_combinators.rcs_network_slowstats ~= nil then
+    local rc_network_slowstats=global.robotic_combinators.rcs_network_slowstats
   end
   
-  if grc.rc_personal ~= nil then
-    local rc_personal=grc.rc_personal
+  if global.robotic_combinators.rcs_personal ~= nil then
+    local rc_personal=global.robotic_combinators.rcs_personal
   end
   
-  if grc.rc_local ~= nil then
-    local rc_local=grc.rc_local
+  if global.robotic_combinators.rcs_local ~= nil then
+    local rc_local=global.robotic_combinators.rcs_local
   end
 
   
@@ -70,15 +69,12 @@ end
 
 
 local function onSave()
-  -- Global Re-saving, to be safe...
-    
-  global.robotic_combinators.rc_network = rc_network
-  global.robotic_combinators.rc_network_slowstats = rc_network_slowstats
-  global.robotic_combinators.rc_personal = rc_personal
-  global.robotic_combinators.rc_local = rc_local
-    
-  global.robotic_combinators.version=mod_version
-  
+  -- Global Re-saving  
+  global.robotic_combinators={rcs_network=rc_network,
+                              rcs_network_slowstats=rc_network_slowstats, 
+                              rcs_personal=rc_personal, 
+                              rcs_local=rc_local, 
+                              version=mod_version}
 end
 
 
@@ -168,8 +164,6 @@ if ReadyToRoll == 11 then
           {index=10,count=thisToCharge,signal={type="virtual",name="signal-robot-to-charge-count"}},
         }}
         v.EntityID.set_circuit_condition(1,rcparas)
-        
-        
         
       end
     end
