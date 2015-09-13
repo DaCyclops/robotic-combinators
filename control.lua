@@ -3,7 +3,7 @@ require "config"
 
 local ReadyToRoll=0
 
-local mod_version="0.3.2"
+local mod_version="0.3.3"
 
 local poll_network = math.floor(60/rc_polling_rate_network)
 local poll_network_slow = math.floor(60/rc_polling_rate_network_slow)
@@ -100,17 +100,19 @@ if ReadyToRoll == 11 then
         LogiNet = ve.surface.find_logistic_network_by_position(ve.position,ve.force.name)
         if LogiNet ~= nil then
           local emptyStorage = 0
-          for sk,sv in pairs(LogiNet.storages) do
-            local ev = sv.get_inventory(1)
-            local invlimit = 0
-            if ev.hasbar() then
-              invlimit = ev.getbar()
-            else
-              invlimit = #ev
-            end
-            for si = 1,invlimit do
-              if ev[si].valid_for_read == false then
-              emptyStorage = emptyStorage + 1
+          if rc_network_calc_storage_stacks then
+            for sk,sv in pairs(LogiNet.storages) do
+              local ev = sv.get_inventory(1)
+              local invlimit = 0
+              if ev.hasbar() then
+                invlimit = ev.getbar()
+              else
+                invlimit = #ev
+              end
+              for si = 1,invlimit do
+                if ev[si].valid_for_read == false then
+                emptyStorage = emptyStorage + 1
+                end
               end
             end
           end
