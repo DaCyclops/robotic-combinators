@@ -18,6 +18,11 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
     local rc_personal={}
     local rc_local={}
 
+    
+local function onInit()
+   onLoad()   
+end    
+    
   local function onLoad()
   
   -- Version Recipe Reset Migration
@@ -219,14 +224,14 @@ end
 
 
 
-game.on_init(onLoad)
-game.on_load(onLoad)
+script.on_init(onInit)
+script.on_load(onLoad)
 
-game.on_save(onSave)
+--game.on_save(onSave)
 
-game.on_event(defines.events.on_built_entity,onPlaceEntity)
-game.on_event(defines.events.on_robot_built_entity,onPlaceEntity)
+script.on_event(defines.events.on_built_entity,onPlaceEntity)
+script.on_event(defines.events.on_robot_built_entity,onPlaceEntity)
 
 
 
-game.on_event(defines.events.on_tick,onTick)
+script.on_event(defines.events.on_tick,onTick)
