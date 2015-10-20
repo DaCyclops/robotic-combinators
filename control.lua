@@ -1,10 +1,6 @@
 require "defines"
 require "config"
 
-local ReadyToRoll=0
-
-local mod_version="0.3.3"
-
 local poll_network = math.floor(60/rc_polling_rate_network)
 local poll_network_slow = math.floor(60/rc_polling_rate_network_slow)
 local poll_personal = math.floor(60/rc_polling_rate_personal)
@@ -18,49 +14,6 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
     local rc_personal={}
     local rc_local={}
 
-    
-local function onInit()
-   onLoad()   
-end    
-    
-  local function onLoad()
-  
-  -- Version Recipe Reset Migration
-  if global.robotic_combinators == nil or global.robotic_combinators.version ~= mod_version then
-    --unlock if needed
-    for _,force in pairs(game.forces) do
-      force.reset_recipes()
-      force.reset_technologies()
-
-      local techs=force.technologies
-      local recipes=force.recipes
-      if techs["logistic-robotics"].researched then
-        recipes["robotic-network-combinator"].enabled=true
-      end
-      if techs["construction-robotics"].researched then
-        recipes["robotic-network-combinator"].enabled=true
-      end
-
-    end
-    if global.robotic_combinators == nil then
-        global.robotic_combinators={rcs_network={},
-                              rcs_network_slowstats={}, 
-                              rcs_personal={}, 
-                              rcs_local={}, 
-                              version=mod_version}
-    end
-    
-    
-    
-  end
-
-   -- Global Migrations
-  if global.robotic_combinators.rcscombs ~= nil then
-    global.robotic_combinators.rcs_network = global.robotic_combinators.rcscombs
-    global.robotic_combinators.rcscombs = nil
-  end
-
-  -- Global Extraction
   if global.robotic_combinators.rcs_network ~= nil then
     rc_network=global.robotic_combinators.rcs_network
   end
@@ -76,24 +29,66 @@ end
   if global.robotic_combinators.rcs_local ~= nil then
     rc_local=global.robotic_combinators.rcs_local
   end
-
+    
+    
+local function onConfigChange(cDat)
   
-ReadyToRoll=11
+  if cDat.mod_changes ~= nil and cDat.mod_changes["robotic-combinators"] ~= nil and cDat.mod_changes["robotic-combinators"].old_version == nil then
+   -- Mod added 
+    for _,force in pairs(game.forces) do
+      force.reset_recipes()
+      force.reset_technologies()
+      local techs=force.technologies
+      local recipes=force.recipes
+      --Tech Addition
+      if techs["logistic-robotics"].researched then
+        recipes["robotic-network-combinator"].enabled=true
+      end
+      if techs["construction-robotics"].researched then
+        recipes["robotic-network-combinator"].enabled=true
+      end
+
+    end     
+    
+  end 
+
+  if cDat.mod_changes ~= nil and cDat.mod_changes["robotic-combinators"] ~= nil and cDat.mod_changes["robotic-combinators"].old_version ~= nil then
+   -- Mod updated or removed
+    for _,force in pairs(game.forces) do
+      force.reset_recipes()
+      force.reset_technologies()
+      local techs=force.technologies
+      local recipes=force.recipes
+      --Tech Addition
+      if techs["logistic-robotics"].researched then
+        recipes["robotic-network-combinator"].enabled=true
+      end
+      if techs["construction-robotics"].researched then
+        recipes["robotic-network-combinator"].enabled=true
+      end
+
+    end     
+    
+    -- Global Migrations
+    if global.robotic_combinators.rcscombs ~= nil then
+      global.robotic_combinators.rcs_network = global.robotic_combinators.rcscombs
+      global.robotic_combinators.rcscombs = nil
+    end
+
+  end
 end
 
-
-local function onSave()
-  -- Global Re-saving  
-  global.robotic_combinators={rcs_network=rc_network,
-                              rcs_network_slowstats=rc_network_slowstats, 
-                              rcs_personal=rc_personal, 
-                              rcs_local=rc_local, 
-                              version=mod_version}
+local function onInit()
+  -- Nothing to do now
+end   
+  
+local function onLoad()
+  --Nothing to Do Now  
 end
 
 
 local function onTick(event)
-if ReadyToRoll == 11 then
+
 
   --Robotic Network Combinator Slow-Tick
   if event.tick%poll_network_slow == poll_network_slow-1 then
@@ -186,7 +181,7 @@ if ReadyToRoll == 11 then
   end
 
   
-end
+
 end
 
 
@@ -227,7 +222,7 @@ end
 script.on_init(onInit)
 script.on_load(onLoad)
 
---game.on_save(onSave)
+script.on_configuration_changed(onConfigChange(data))
 
 script.on_event(defines.events.on_built_entity,onPlaceEntity)
 script.on_event(defines.events.on_robot_built_entity,onPlaceEntity)
