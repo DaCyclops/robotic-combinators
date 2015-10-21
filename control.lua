@@ -14,6 +14,7 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
     local rc_personal={}
     local rc_local={}
 
+if global.robotic_combinators ~= nil then
   if global.robotic_combinators.rcs_network ~= nil then
     rc_network=global.robotic_combinators.rcs_network
   end
@@ -29,11 +30,12 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
   if global.robotic_combinators.rcs_local ~= nil then
     rc_local=global.robotic_combinators.rcs_local
   end
+end    
     
-    
-local function onConfigChange(cDat)
-  
-  if cDat.mod_changes ~= nil and cDat.mod_changes["robotic-combinators"] ~= nil and cDat.mod_changes["robotic-combinators"].old_version == nil then
+
+ -- Start OnLoad/OnInit/OnConfig events
+script.on_configuration_changed( function(data)
+  if data.mod_changes ~= nil and data.mod_changes["robotic-combinators"] ~= nil and data.mod_changes["robotic-combinators"].old_version == nil then
    -- Mod added 
     for _,force in pairs(game.forces) do
       force.reset_recipes()
@@ -49,10 +51,15 @@ local function onConfigChange(cDat)
       end
 
     end     
-    
+  
+    global.robotic_combinators={rcs_network={},
+                              rcs_network_slowstats={}, 
+                              rcs_personal={}, 
+                              rcs_local={} }
+  
   end 
 
-  if cDat.mod_changes ~= nil and cDat.mod_changes["robotic-combinators"] ~= nil and cDat.mod_changes["robotic-combinators"].old_version ~= nil then
+  if data.mod_changes ~= nil and data.mod_changes["robotic-combinators"] ~= nil and data.mod_changes["robotic-combinators"].old_version ~= nil then
    -- Mod updated or removed
     for _,force in pairs(game.forces) do
       force.reset_recipes()
@@ -76,15 +83,16 @@ local function onConfigChange(cDat)
     end
 
   end
-end
+end)
 
-local function onInit()
+script.on_init(function()
   -- Nothing to do now
-end   
+end)   
   
-local function onLoad()
+script.on_load(function()
   --Nothing to Do Now  
-end
+end)
+-- End OnLoad/OnInit/OnConfig events
 
 
 local function onTick(event)
@@ -210,19 +218,6 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-script.on_init(onInit)
-script.on_load(onLoad)
-
-script.on_configuration_changed(onConfigChange(data))
 
 script.on_event(defines.events.on_built_entity,onPlaceEntity)
 script.on_event(defines.events.on_robot_built_entity,onPlaceEntity)
