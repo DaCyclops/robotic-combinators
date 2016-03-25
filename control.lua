@@ -14,23 +14,31 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
     local rc_personal={}
     local rc_local={}
 
-if global.robotic_combinators ~= nil then
-  if global.robotic_combinators.rcs_network ~= nil then
+local function init()
+  global.robotic_combinators = global.robotic_combinators or {}
+  global.robotic_combinators.rcs_network = global.robotic_combinators.rcs_network or {}
+  global.robotic_combinators.rcs_network_slowstats = global.robotic_combinators.rcs_network_slowstats or {}
+  global.robotic_combinators.rcs_personal = global.robotic_combinators.rcs_personal or {}
+  global.robotic_combinators.rcs_local = global.robotic_combinators.rcs_local or {}
+  
+  if global.robotic_combinators ~= nil then
+    if global.robotic_combinators.rcs_network ~= nil then
     rc_network=global.robotic_combinators.rcs_network
-  end
+    end
 
-  if global.robotic_combinators.rcs_network_slowstats ~= nil then
+    if global.robotic_combinators.rcs_network_slowstats ~= nil then
     rc_network_slowstats=global.robotic_combinators.rcs_network_slowstats
-  end
+    end
   
-  if global.robotic_combinators.rcs_personal ~= nil then
+    if global.robotic_combinators.rcs_personal ~= nil then
     rc_personal=global.robotic_combinators.rcs_personal
-  end
+    end
   
-  if global.robotic_combinators.rcs_local ~= nil then
+    if global.robotic_combinators.rcs_local ~= nil then
     rc_local=global.robotic_combinators.rcs_local
-  end
-end    
+    end
+  end   
+end 
     
 
  -- Start OnLoad/OnInit/OnConfig events
@@ -86,11 +94,11 @@ script.on_configuration_changed( function(data)
 end)
 
 script.on_init(function()
-  -- Nothing to do now
+  init()
 end)   
   
 script.on_load(function()
-  --Nothing to Do Now  
+  init()
 end)
 -- End OnLoad/OnInit/OnConfig events
 
