@@ -15,7 +15,10 @@ local poll_local_slow = math.floor(60/rc_polling_rate_local_slow)
     local rc_local={}
 
 local function init()
-  global.robotic_combinators = global.robotic_combinators or {}
+  global.robotic_combinators = global.robotic_combinators or {rcs_network={},
+                              rcs_network_slowstats={}, 
+                              rcs_personal={}, 
+                              rcs_local={}}
   global.robotic_combinators.rcs_network = global.robotic_combinators.rcs_network or {}
   global.robotic_combinators.rcs_network_slowstats = global.robotic_combinators.rcs_network_slowstats or {}
   global.robotic_combinators.rcs_personal = global.robotic_combinators.rcs_personal or {}
